@@ -11,8 +11,6 @@
           <v-spacer />
 
           <LandingPageHeader>
-            <v-btn text @click="openHowItWorksDialog">How it works</v-btn>
-            <v-btn text href="/blog">Blog</v-btn>
             <div v-if="authUser" class="tw-ml-2">
               <AuthUserMenu />
             </div>
@@ -26,11 +24,6 @@
           class="tw-mb-6 tw-flex tw-max-w-[26rem] tw-flex-col tw-items-center sm:tw-w-[35rem] sm:tw-max-w-none"
         >
           <div
-            class="tw-mb-4 tw-flex tw-select-none tw-items-center tw-rounded-full tw-border tw-border-light-gray-stroke tw-bg-white/70 tw-px-2.5 tw-py-1.5 tw-text-sm tw-text-dark-gray"
-          >
-            We're open source!
-          </div>
-          <div
             id="header"
             class="tw-mb-4 tw-text-center tw-text-2xl tw-font-medium sm:tw-text-4xl lg:tw-text-4xl xl:tw-text-5xl"
           >
@@ -41,26 +34,6 @@
             class="lg:tw-text-md tw-text-left tw-text-center tw-text-sm tw-text-very-dark-gray sm:tw-text-lg md:tw-text-lg xl:tw-text-lg"
           >
             Coordinate group meetings without the back and forth.
-            <br class="tw-hidden sm:tw-block" />
-            Integrates with your
-            <v-tooltip
-              top
-              content-class="tw-bg-very-dark-gray tw-shadow-lg tw-opacity-100"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <span
-                  class="tw-cursor-pointer tw-border-b tw-border-dashed tw-border-dark-gray"
-                  v-bind="attrs"
-                  v-on="on"
-                  >calendar</span
-                >
-              </template>
-              <span
-                >Timeful allows you to autofill your availability from Google
-                Calendar,<br class="tw-hidden sm:tw-block" />
-                Outlook, Apple Calendar, or an ICS feed URL.</span
-              > </v-tooltip
-            >.
           </div>
         </div>
 
@@ -143,44 +116,6 @@
       />
     </div>
 
-    <!-- Video -->
-    <div
-      class="tw-flex tw-justify-center tw-bg-green tw-px-4 tw-pb-12 tw-pt-24 md:tw-pb-16"
-    >
-      <div
-        class="tw-h-[300px] tw-max-w-3xl tw-flex-1 sm:tw-h-[400px] md:tw-h-[450px]"
-      >
-        <iframe
-          class="tw-h-full tw-w-full"
-          src="https://www.youtube.com/embed/vFkBC8BrkOk?si=pF64JAIyDhom_1do"
-          title="Timeful demo"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
-        ></iframe>
-      </div>
-    </div>
-
-    <!-- FAQ -->
-    <div class="tw-flex tw-justify-center tw-pt-12">
-      <div class="tw-mx-4 tw-mb-12 tw-max-w-3xl tw-flex-1 sm:tw-mx-16">
-        <div id="faq-section" class="tw-text-center lg:tw-pt-3">
-          <Header> Frequently Asked Questions </Header>
-          <div
-            class="tw-grid tw-grid-cols-1 tw-gap-3 sm:tw-text-xl lg:tw-text-2xl"
-          >
-            <FAQ
-              v-for="faq in faqs"
-              :key="faq.question"
-              @signIn="signIn"
-              v-bind="faq"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-
     <Footer />
 
     <!-- Sign in dialog -->
@@ -227,7 +162,6 @@ import LandingPageHeader from "@/components/landing/LandingPageHeader.vue"
 import Logo from "@/components/Logo.vue"
 import SignInDialog from "@/components/SignInDialog.vue"
 import { calendarTypes } from "@/constants"
-import HowItWorksDialog from "@/components/HowItWorksDialog.vue"
 import Footer from "@/components/Footer.vue"
 import PronunciationMenu from "@/components/PronunciationMenu.vue"
 import { mapState, mapMutations } from "vuex"
@@ -237,7 +171,7 @@ export default {
   name: "Landing",
 
   metaInfo: {
-    title: "Timeful (formerly Schej) - Find a time to meet",
+    title: "Timeful",
   },
 
   components: {
@@ -250,7 +184,6 @@ export default {
     LandingPageHeader,
     Logo,
     SignInDialog,
-    HowItWorksDialog,
     Footer,
     PronunciationMenu,
     AuthUserMenu,
@@ -266,59 +199,6 @@ export default {
       "See where everybody's availability overlaps!",
     ],
     faqs: [
-      {
-        question: "Does Timeful support timezones?",
-        answer:
-          "Yes! Timeful automatically converts all times to the viewer's local timezone. There's also a timezone selector at the bottom of every meeting poll if you would like to manually change it.",
-      },
-      {
-        question: "How many people can respond to an event?",
-        answer:
-          "Unlimited! We've tested events with over 500+ responses and it works great.",
-      },
-      {
-        question: "What calendars does Timeful integrate with?",
-        answer:
-          "Timeful allows you to autofill your availability from your Google Calendar, Outlook, Apple Calendar, or an ICS feed URL. We are working on adding more calendar types soon!",
-      },
-      {
-        question: "Is calendar access required in order to use Timeful?",
-        answer:
-          "Nope! You can manually input your availability, but we highly recommend allowing calendar access in order to view your calendar events while doing so.",
-      },
-      {
-        question: "Will other people be able to see my calendar events?",
-        answer:
-          "Nope! All other users will be able to see is the availability that you enter for an event.",
-      },
-      {
-        question: "How do I edit my availability?",
-        answer:
-          'If you are signed in, simply click the "Edit availability" button. If you entered your availability as a guest, hover over your name and click the pencil icon next to it.',
-      },
-      {
-        question: "How is Timeful different from Lettucemeet or When2meet?",
-        points: [
-          "Much better UI (web and mobile)",
-          "Seamless and working calendar integration",
-          "A slew of other features that we don't have space to list here",
-        ],
-      },
-      {
-        question: `I want it so that only I can see people's responses.`,
-        answer: `Just check "Only show responses to event creator" under Advanced Options when creating your event! Other respondees will not be able to see each other's names or availability.`,
-        authRequired: true,
-      },
-      {
-        question: `Can I receive emails when someone fills out my event?`,
-        answer: `Absolutely! Check "Email me each time someone joins my event" when creating an event. <br><br>To receive email notifications after a specific number (X) of responses are added, check "Email me after X responses" in Advanced Options.`,
-        authRequired: true,
-      },
-      {
-        question: `How do I send reminders to people to fill out an event?`,
-        answer: `Open the "Email Reminders" section when creating an event and input everybody's email address. Reminder emails will be sent the day of event creation, one day after, and three days after. <br><br>You will also receive an email once everybody has filled out the Timeful.`,
-        authRequired: true,
-      },
     ],
     rive: null,
     showSchejy: false,

@@ -61,14 +61,6 @@
         ></div>
       </div>
 
-      <div class="tw-flex tw-flex-col tw-items-center tw-justify-between">
-        <router-link
-          class="tw-text-xs tw-font-medium tw-text-gray"
-          :to="{ name: 'privacy-policy' }"
-        >
-          Privacy Policy
-        </router-link>
-      </div>
 
       <!-- FAB -->
       <BottomFab
