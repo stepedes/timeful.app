@@ -75,12 +75,7 @@
               </v-btn>
             </div>
           </div>
-          <div class="tw-text-center tw-text-xs">
-            By continuing, you agree to our
-            <router-link class="tw-text-blue" :to="{ name: 'privacy-policy' }"
-              >privacy policy</router-link
-            >
-          </div>
+          
         </v-card-text>
       </template>
 
