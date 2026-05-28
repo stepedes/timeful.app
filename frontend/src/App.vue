@@ -45,16 +45,6 @@
         >
           Create an event
         </v-btn>
-        <v-btn
-          v-if="showFeedbackBtn"
-          id="feedback-btn"
-          text
-          href="https://forms.gle/A96i4TTWeKgH3P1W6"
-          target="_blank"
-          @click="trackFeedbackClick"
-        >
-          Give feedback
-        </v-btn>
         <!-- <v-btn
           v-if="!isPhone"
           text
