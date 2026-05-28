@@ -49,23 +49,6 @@
                   <v-spacer />
                 </div>
               </v-btn>
-              <v-btn
-                block
-                @click="signIn(calendarTypes.OUTLOOK)"
-                class="tw-bg-white"
-              >
-                <div class="tw-flex tw-w-full tw-items-center tw-gap-2">
-                  <v-img
-                    class="tw-flex-initial"
-                    width="20"
-                    height="20"
-                    src="@/assets/outlook_logo.svg"
-                  />
-                  <v-spacer />
-                  {{ isSignUp ? "Sign up with" : "Continue with" }} Outlook
-                  <v-spacer />
-                </div>
-              </v-btn>
 
               <div class="tw-my-2 tw-flex tw-items-center tw-gap-3">
                 <v-divider />
@@ -251,7 +234,7 @@
 
 <script>
 import { authTypes, calendarTypes } from "@/constants"
-import { post, signInGoogle, signInOutlook } from "@/utils"
+import { post, signInGoogle } from "@/utils"
 import { mapMutations } from "vuex"
 import Logo from "@/components/Logo.vue"
 
@@ -299,8 +282,6 @@ export default {
     signIn(provider) {
       if (provider === calendarTypes.GOOGLE) {
         signInGoogle({ selectAccount: true })
-      } else if (provider === calendarTypes.OUTLOOK) {
-        signInOutlook({ selectAccount: true })
       }
     },
     validateEmail() {

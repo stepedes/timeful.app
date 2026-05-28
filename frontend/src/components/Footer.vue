@@ -112,53 +112,6 @@
             >
           </div>
         </div>
-        <!-- Articles -->
-        <div class="tw-flex tw-flex-col tw-gap-2">
-          <div class="tw-mb-1 tw-font-bold">Articles</div>
-          <div>
-            <a href="/blog/schej-is-now-timeful/" class="tw-text-sm"
-              >Schej is now Timeful</a
-            >
-          </div>
-          <div>
-            <a href="/blog/about/" class="tw-text-sm"
-              >Welcome to the Timeful blog!</a
-            >
-          </div>
-          <div>
-            <a href="/blog/doodle/" class="tw-text-sm">Timeful vs Doodle</a>
-          </div>
-          <div>
-            <a href="/blog/when2meet/" class="tw-text-sm"
-              >Timeful vs When2meet</a
-            >
-          </div>
-          <div>
-            <a href="/blog/gcalandwhen2meet/" class="tw-text-sm"
-              >How to use When2meet with Google Calendar</a
-            >
-          </div>
-        </div>
-        <!-- Reddit posts -->
-        <div class="tw-flex tw-flex-col tw-gap-2">
-          <div class="tw-mb-1 tw-font-bold">Reddit posts</div>
-          <div>
-            <a
-              href="https://www.reddit.com/r/opensource/comments/1dlol7r/i_made_a_better_when2meet/"
-              target="_blank"
-              class="tw-text-sm"
-              >I made a better when2meet</a
-            >
-          </div>
-          <div>
-            <a
-              href="https://www.reddit.com/r/opensource/comments/1klu471/i_made_a_doodle_alternative/"
-              target="_blank"
-              class="tw-text-sm"
-              >I made a Doodle alternative</a
-            >
-          </div>
-        </div>
       </div>
     </div>
   </footer>
