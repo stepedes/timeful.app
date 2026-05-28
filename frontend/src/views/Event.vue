@@ -281,8 +281,6 @@
           <ScheduleOverlap
             ref="scheduleOverlap"
             :event="event"
-            :ownerIsPremium="ownerIsPremium"
-            :fromEditEvent="fromEditEvent"
             :loadingCalendarEvents="loading"
             :calendarEventsMap="calendarEventsMap"
             :calendarPermissionGranted="calendarPermissionGranted"
@@ -575,9 +573,6 @@ export default {
     scheduleOverlapComponent: null,
     scheduleOverlapComponentLoaded: false,
 
-    ownerIsPremium: false,
-    ownerPremiumChecked: false,
-
     curGuestId: "", // Id of the current guest being edited
     calendarPermissionGranted: true,
     addingAvailabilityAsGuest: false, // Whether a signed in user is current adding availability as a guest
@@ -612,11 +607,7 @@ export default {
     ...mapState(["authUser", "events"]),
     ...mapGetters(["isPremiumUser"]),
     showAds() {
-      return (
-        !this.ownerIsPremium &&
-        !this.isPremiumUser &&
-        !this.isSettingSpecificTimes
-      )
+      return !this.isSettingSpecificTimes
     },
     allowScheduleEvent() {
       return this.scheduleOverlapComponent?.allowScheduleEvent
@@ -830,19 +821,6 @@ export default {
       // Make single request with guestName if available
       this.event = await get(url)
       processEvent(this.event)
-    },
-
-    async checkOwnerPremium() {
-      const ownerId = this.event?.ownerId
-      if (ownerId && ownerId !== guestUserId) {
-        try {
-          const res = await get(`/users/${ownerId}/is-premium`)
-          this.ownerIsPremium = res.isPremium
-        } catch {
-          this.ownerIsPremium = false
-        }
-      }
-      this.ownerPremiumChecked = true
     },
 
     setAvailabilityAutomatically(calendarType = calendarTypes.GOOGLE) {
@@ -1845,7 +1823,6 @@ export default {
     // Get event details
     try {
       await this.refreshEvent()
-      await this.checkOwnerPremium()
 
       // Redirect if we're at the wrong route
       if (this.event.type === eventTypes.GROUP) {
@@ -1923,12 +1900,6 @@ export default {
           this.scheduleOverlapComponent = this.$refs.scheduleOverlap
         })
         document.title = `${this.event.name} - Timeful`
-      }
-    },
-    ownerPremiumChecked(val) {
-      if (this.showAds) {
-        window.enableStickyFooter = true
-        this.initFusetag()
       }
     },
     scheduleOverlapComponent() {

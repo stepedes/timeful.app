@@ -1,6 +1,5 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import { numFreeEvents, upgradeDialogTypes } from "@/constants"
 import { get, isPremiumUser } from "@/utils"
 import {
   createFolder,
@@ -29,7 +28,7 @@ export default new Vuex.Store({
     signUpFormEnabled: false,
     daysOnlyEnabled: true,
     overlayAvailabilitiesEnabled: true,
-    enablePaywall: true,
+    enablePaywall: false,
 
     // Experiments
     pricingPageConversion: "control",
@@ -164,20 +163,9 @@ export default new Vuex.Store({
     },
 
     createNew(
-      { state, getters, commit, dispatch },
+      { commit },
       { eventOnly = false, folderId = null }
     ) {
-      if (
-        state.enablePaywall &&
-        !getters.isPremiumUser &&
-        state.authUser?.numEventsCreated >= numFreeEvents
-      ) {
-        dispatch("showUpgradeDialog", {
-          type: upgradeDialogTypes.CREATE_EVENT,
-        })
-        return
-      }
-
       commit("setNewDialogOptions", {
         show: true,
         contactsPayload: {},

@@ -8,8 +8,6 @@
 
 <script>
 import { get } from "@/utils"
-import { guestUserId } from "@/constants"
-import { mapGetters } from "vuex"
 
 export default {
   name: "CarbonAd",
@@ -19,19 +17,10 @@ export default {
   },
 
   data: () => ({
-    ownerIsPremium: false,
     ownerLoaded: false,
   }),
 
   async mounted() {
-    if (this.ownerId && this.ownerId !== guestUserId) {
-      try {
-        const res = await get(`/users/${this.ownerId}/is-premium`)
-        this.ownerIsPremium = res.isPremium
-      } catch {
-        this.ownerIsPremium = false
-      }
-    }
     this.ownerLoaded = true
 
     await this.$nextTick()
@@ -46,9 +35,8 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["isPremiumUser"]),
     showAd() {
-      return this.ownerLoaded && !this.ownerIsPremium && !this.isPremiumUser
+      return this.ownerLoaded
     },
   },
 

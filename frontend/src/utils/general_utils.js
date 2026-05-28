@@ -217,11 +217,8 @@ export const lightOrDark = (color) => {
 export const isPremiumUser = (authUser) => {
   if (!authUser) return false
 
-  if (authUser.stripeCustomerId) {
-    if (authUser.isPremium !== null) {
-      return authUser.isPremium
-    }
-    return true
+  if (authUser.isPremium != null) {
+    return authUser.isPremium
   }
   return false
 }

@@ -19,7 +19,6 @@ import (
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"github.com/stripe/stripe-go/v82"
 	"schej.it/server/db"
 	"schej.it/server/logger"
 	"schej.it/server/routes"
@@ -132,7 +131,6 @@ func main() {
 	routes.InitUsers(apiRouter)
 	routes.InitEvents(apiRouter)
 	routes.InitAnalytics(apiRouter)
-	routes.InitStripe(apiRouter)
 	routes.InitFolders(apiRouter)
 	slackbot.InitSlackbot(apiRouter)
 
@@ -188,9 +186,6 @@ func loadDotEnv() {
 		// .env file is optional - env vars can be passed directly (e.g., via Docker)
 		logger.StdOut.Println("No .env file found, using environment variables")
 	}
-
-	// Load stripe key
-	stripe.Key = os.Getenv("STRIPE_API_KEY")
 
 	// Validate session secret
 	validateSessionSecret()

@@ -34,12 +34,8 @@ func getIsUserPremium(c *gin.Context) {
 	}
 
 	isPremium := false
-	if user.StripeCustomerId != nil {
-		if user.IsPremium != nil {
-			isPremium = *user.IsPremium
-		} else {
-			isPremium = true
-		}
+	if user.IsPremium != nil {
+		isPremium = *user.IsPremium
 	}
 
 	c.JSON(http.StatusOK, gin.H{"isPremium": isPremium})

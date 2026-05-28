@@ -2577,10 +2577,6 @@ var doc = `{
                     "description": "The calendarAccountKey of the account the user first signed in with",
                     "type": "string"
                 },
-                "stripeCustomerId": {
-                    "description": "Stripe customer ID",
-                    "type": "string"
-                },
                 "timezoneOffset": {
                     "type": "integer"
                 }

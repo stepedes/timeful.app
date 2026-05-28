@@ -11,21 +11,12 @@
       >
         advertisement
       </div>
-      <div
-        class="tw-cursor-pointer tw-select-none tw-text-center tw-text-[10px] tw-font-medium tw-text-blue tw-underline"
-        @click.stop="removeAds"
-      >
-        Remove ads
-      </div>
     </span>
     <slot />
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex"
-import { upgradeDialogTypes } from "@/constants"
-
 export default {
   name: "PubliftAd",
 
@@ -47,10 +38,6 @@ export default {
   },
 
   methods: {
-    ...mapActions(["showUpgradeDialog"]),
-    removeAds() {
-      this.showUpgradeDialog({ type: upgradeDialogTypes.REMOVE_ADS })
-    },
     registerZone() {
       const fuseId = this.fuseId
       const fusetag = window.fusetag || (window.fusetag = { que: [] })

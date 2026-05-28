@@ -273,9 +273,6 @@ export default {
   },
 
   computed: {
-    upgradeRedirect() {
-      return this.$route.query.redirect === "upgrade"
-    },
   },
 
   data() {
@@ -300,13 +297,10 @@ export default {
   methods: {
     ...mapMutations(["setAuthUser"]),
     signIn(provider) {
-      const state = this.upgradeRedirect
-        ? { type: authTypes.UPGRADE, upgradeParams: this.$route.query.upgradeParams }
-        : null
       if (provider === calendarTypes.GOOGLE) {
-        signInGoogle({ state, selectAccount: true })
+        signInGoogle({ selectAccount: true })
       } else if (provider === calendarTypes.OUTLOOK) {
-        signInOutlook({ state, selectAccount: true })
+        signInOutlook({ selectAccount: true })
       }
     },
     validateEmail() {
@@ -414,21 +408,6 @@ export default {
       }
     },
     async handlePostAuthRedirect(user) {
-      if (this.upgradeRedirect) {
-        try {
-          const params = JSON.parse(this.$route.query.upgradeParams)
-          const res = await post("/stripe/create-checkout-session", {
-            priceId: params.priceId,
-            userId: user._id,
-            isSubscription: params.isSubscription,
-            originUrl: params.originUrl,
-          })
-          window.location.href = res.url
-          return
-        } catch (e) {
-          console.error(e)
-        }
-      }
       this.$router.replace({ name: "home" })
     },
     startResendCooldown() {

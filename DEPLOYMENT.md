@@ -110,9 +110,6 @@ Create `server/.env` from the template (`server/.env.template`).
 
 | Variable                | Description                        |
 | ----------------------- | ---------------------------------- |
-| `STRIPE_API_KEY`        | Stripe API key                     |
-| `STRIPE_WEBHOOK_SECRET` | Stripe webhook signing secret      |
-| `STRIPE_*_PRICE_ID`     | Stripe price IDs for various plans |
 
 #### Optional — Additional Calendars
 

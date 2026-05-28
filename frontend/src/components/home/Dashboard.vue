@@ -7,21 +7,6 @@
         >
           Dashboard
         </div>
-        <div
-          v-if="!isPremiumUser"
-          class="tw-flex tw-items-baseline tw-gap-2 tw-text-sm tw-font-normal tw-text-very-dark-gray"
-        >
-          <div>
-            {{ authUser?.numEventsCreated }} / {{ numFreeEvents }} free events
-            created this month
-          </div>
-          <div
-            class="tw-cursor-pointer tw-select-none tw-text-xs tw-font-medium tw-text-green tw-underline"
-            @click="openUpgradeDialog"
-          >
-            Upgrade
-          </div>
-        </div>
       </div>
       <v-btn
         text
@@ -207,14 +192,9 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from "vuex"
+import { mapState, mapActions } from "vuex"
 import draggable from "vuedraggable"
-import {
-  eventTypes,
-  folderColors,
-  numFreeEvents,
-  upgradeDialogTypes,
-} from "@/constants"
+import { eventTypes, folderColors, numFreeEvents } from "@/constants"
 import EventItem from "@/components/EventItem.vue"
 import ObjectID from "bson-objectid"
 
@@ -239,7 +219,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["isPremiumUser"]),
     ...mapState(["authUser", "events", "groupsEnabled", "folders"]),
     orderedFolders() {
       return this.folders.sort((a, b) => {
@@ -360,7 +339,6 @@ export default {
   methods: {
     ...mapActions([
       "createFolder",
-      "showUpgradeDialog",
       "deleteFolder",
       "setEventFolder",
       "updateFolder",
@@ -473,11 +451,6 @@ export default {
     confirmDelete() {
       this.$store.dispatch("deleteFolder", this.folderToDelete._id)
       this.deleteDialog = false
-    },
-    openUpgradeDialog() {
-      this.showUpgradeDialog({
-        type: upgradeDialogTypes.UPGRADE_MANUALLY,
-      })
     },
   },
   created() {

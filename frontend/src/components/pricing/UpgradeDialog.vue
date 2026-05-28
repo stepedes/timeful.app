@@ -449,7 +449,6 @@
 </template>
 
 <script>
-import { get, post } from "@/utils"
 import { mapState, mapActions } from "vuex"
 import { upgradeDialogTypes } from "@/constants"
 import AlreadyDonatedDialog from "./AlreadyDonatedDialog.vue"
@@ -639,90 +638,21 @@ export default {
       }
     },
     async fetchPrice() {
-      let res;
-      // Mock stripe price results in development mode as the Stripe API won't be accessible
-      if (process.env.NODE_ENV === "development") {
-        res = {
-          lifetime: { id: "price_dev_lifetime", unit_amount: 9999, recurring: null },
-          monthly: { id: "price_dev_monthly", unit_amount: 999, recurring: { interval: "month" } },
-          yearly: { id: "price_dev_yearly", unit_amount: 7999, recurring: { interval: "year" } },
-          lifetimeStudent: { id: "price_dev_lifetime_student", unit_amount: 4999, recurring: null },
-          monthlyStudent: { id: "price_dev_monthly_student", unit_amount: 499, recurring: { interval: "month" } },
-          yearlyStudent: { id: "price_dev_yearly_student", unit_amount: 3999, recurring: { interval: "year" } },
-        }
-      } else {
-        res = await get("/stripe/price?exp=" + this.pricingPageConversion)
-      }
-
-      const {
-        lifetime,
-        monthly,
-        yearly,
-        lifetimeStudent,
-        monthlyStudent,
-        yearlyStudent,
-      } = res
-      this.lifetimePrice = lifetime
-      this.monthlyPrice = monthly
-      this.yearlyPrice = yearly
-      this.lifetimeStudentPrice = lifetimeStudent
-      this.monthlyStudentPrice = monthlyStudent
-      this.yearlyStudentPrice = yearlyStudent
+      this.lifetimePrice = null
+      this.monthlyPrice = null
+      this.yearlyPrice = null
+      this.lifetimeStudentPrice = null
+      this.monthlyStudentPrice = null
+      this.yearlyStudentPrice = null
     },
     async handleUpgrade(price) {
-      // if (this.isStudent) {
-      //   this.showStudentProofDialog = true
-      //   this.$posthog.capture("student_upgrade_attempt", {
-      //     price: price,
-      //   })
-      //   return
-      // }
       this.$posthog.capture("upgrade_clicked", {
         price: this.formattedPrice(price),
       })
-
-      if (!this.authUser) {
-        const upgradeParams = {
-          priceId: price.id,
-          isSubscription: price.recurring !== null,
-          originUrl: window.location.href,
-        }
-        this.$emit("input", false)
-        this.$router.push({
-          name: "sign-up",
-          query: {
-            redirect: "upgrade",
-            upgradeParams: JSON.stringify(upgradeParams),
-          },
-        })
-        return
-      }
-
-      this.$set(this.loadingCheckoutUrl, price.id, true)
-      try {
-        let originUrl = window.location.href
-        if (this.upgradeDialogData) {
-          if (this.upgradeDialogType === upgradeDialogTypes.SCHEDULE_EVENT) {
-            originUrl = `${originUrl}?scheduled_event=${encodeURIComponent(
-              JSON.stringify(this.upgradeDialogData.scheduledEvent)
-            )}`
-          }
-        }
-        const res = await post("/stripe/create-checkout-session", {
-          priceId: price.id,
-          userId: this.authUser._id,
-          isSubscription: price.recurring !== null,
-          originUrl: originUrl,
-        })
-        window.location.href = res.url
-      } catch (e) {
-        console.error(e)
-        this.showError(
-          "There was an error generating a checkout url. Please try again later."
-        )
-      } finally {
-        this.$set(this.loadingCheckoutUrl, price.id, false)
-      }
+      this.showError(
+        "Upgrades are not available at this time."
+      )
+      this.$emit("input", false)
     },
   },
 

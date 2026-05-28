@@ -16,10 +16,6 @@
       :no-tabs="newDialogOptions.eventOnly"
       :folder-id="newDialogOptions.folderId"
     />
-    <UpgradeDialog
-      :value="upgradeDialogVisible"
-      @input="handleUpgradeDialogInput"
-    />
     <UpvoteRedditSnackbar />
     <div
       v-if="showHeader"
@@ -244,7 +240,6 @@ import {
   calendarTypes,
   eventTypes,
   numFreeEvents,
-  upgradeDialogTypes,
 } from "@/constants"
 import AutoSnackbar from "@/components/AutoSnackbar"
 import AuthUserMenu from "@/components/AuthUserMenu.vue"
@@ -253,7 +248,6 @@ import UpvoteRedditSnackbar from "@/components/UpvoteRedditSnackbar.vue"
 import Logo from "@/components/Logo.vue"
 import isWebview from "is-ua-webview"
 import NewDialog from "./components/NewDialog.vue"
-import UpgradeDialog from "@/components/pricing/UpgradeDialog.vue"
 import SignInDialog from "@/components/SignInDialog.vue"
 import DiscordBanner from "@/components/DiscordBanner.vue"
 
@@ -273,7 +267,6 @@ export default {
     NewDialog,
     UpvoteRedditSnackbar,
     Logo,
-    UpgradeDialog,
     SignInDialog,
     DiscordBanner,
   },
@@ -292,8 +285,6 @@ export default {
       "authUser",
       "error",
       "info",
-      "enablePaywall",
-      "upgradeDialogVisible",
       "newDialogOptions",
     ]),
     isPhone() {
@@ -329,13 +320,10 @@ export default {
       "setAuthUser",
       "setSignUpFormEnabled",
       "setPricingPageConversion",
-      "setEnablePaywall",
       "setFeatureFlagsLoaded",
     ]),
     ...mapActions([
       "getEvents",
-      "showUpgradeDialog",
-      "hideUpgradeDialog",
       "createNew",
     ]),
     handleScroll(e) {
@@ -418,11 +406,6 @@ export default {
     },
     trackFeedbackClick() {
       this.$posthog.capture("give_feedback_button_clicked")
-    },
-    handleUpgradeDialogInput(value) {
-      if (!value) {
-        this.hideUpgradeDialog()
-      }
     },
   },
 

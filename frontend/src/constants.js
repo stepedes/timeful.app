@@ -51,13 +51,6 @@ export const calendarTypes = Object.freeze({
   ICS: "ics"
 })
 
-export const upgradeDialogTypes = Object.freeze({
-  CREATE_EVENT: "create-event",
-  SCHEDULE_EVENT: "schedule-event",
-  UPGRADE_MANUALLY: "upgrade-manually",
-  REMOVE_ADS: "remove-ads",
-})
-
 export const timeslotDurations = Object.freeze({
   FIFTEEN_MINUTES: 15,
   THIRTY_MINUTES: 30,
